@@ -47,17 +47,18 @@ switch (type_of_note)
 if (stick_index == ledger_index.LEFT_STICK)
 {
 	new_note = instance_create_layer(
-		left_stick_obj.orig_x, -5, "Notes", note_obj);
+		left_stick_obj.orig_x, -5, "Notes", note_obj);	
+	new_note.note_stick = left_stick_obj;
 }
 else
 {
 	new_note = instance_create_layer(
-		right_stick_obj.orig_x, -5, "Notes", note_obj);
+		right_stick_obj.orig_x, -5, "Notes", note_obj);	
+	new_note.note_stick = right_stick_obj;
 }
 
 new_note.direction = 270;
 new_note.image_angle = note_ang;
 new_note.speed = note_speed;
 new_note.note_time = note_time;
-new_note.note_stick = stick_index;
 new_note.note_dir = type_of_note;

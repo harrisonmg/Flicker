@@ -1,5 +1,11 @@
 /// @desc Define globals for use in the game.
 
+enum chart_types
+{
+	TIME = 0,
+	BEAT = 1
+}
+
 enum ledger_index
 {
 	NOTE_TIME,
@@ -15,3 +21,11 @@ enum note_type
 	LEFT_NOTE,
 	RIGHT_NOTE
 }
+
+enum game_modes
+{
+	PLAY,
+	CHART
+}
+
+global.game_mode = game_modes.CHART;

@@ -63,7 +63,7 @@
             "rangeMin": 0,
             "resourceFilter": 1023,
             "value": "0.80",
-            "varName": " flick_threshold",
+            "varName": "flick_threshold",
             "varType": 0
         },
         {

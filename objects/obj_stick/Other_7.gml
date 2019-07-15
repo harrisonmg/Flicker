@@ -1,1 +1,1 @@
-sprite_index = stick;
+sprite_index = spr_stick;
