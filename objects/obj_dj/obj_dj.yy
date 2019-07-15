@@ -65,6 +65,20 @@
             "value": "2.5",
             "varName": "note_speed",
             "varType": 0
+        },
+        {
+            "id": "b7733b5f-e26b-4139-8427-ddae3a06a846",
+            "modelName": "GMObjectProperty",
+            "mvc": "1.0",
+            "listItems": null,
+            "multiselect": false,
+            "rangeEnabled": false,
+            "rangeMax": 10,
+            "rangeMin": 0,
+            "resourceFilter": 1023,
+            "value": "4",
+            "varName": "note_alignment",
+            "varType": 1
         }
     ],
     "solid": false,
