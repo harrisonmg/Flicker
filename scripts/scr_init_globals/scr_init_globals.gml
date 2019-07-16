@@ -29,3 +29,5 @@ enum game_modes
 }
 
 global.game_mode = game_modes.CHART;
+
+global.gp_index = 0;

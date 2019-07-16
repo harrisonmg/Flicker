@@ -11,7 +11,7 @@ if (active and dj_obj.track_pos >= note_time - time_padding)
 			active = false;
 			sprite_index = spr_hit_note;
 			note_stick.sprite_index = spr_glow_stick;
-			audio_play_sound(snd_hit, 1, false);
+			//audio_play_sound(snd_hit, 1, false);
 			++dj_obj.streak;
 		}
 	}
@@ -20,7 +20,7 @@ if (active and dj_obj.track_pos >= note_time - time_padding)
 		// past hit window, miss
 		active = false;
 		sprite_index = spr_missed_note;
-		audio_play_sound(snd_miss, 1, false);
+		//audio_play_sound(snd_miss, 1, false);
 		dj_obj.streak = 0;
 	}
 }
