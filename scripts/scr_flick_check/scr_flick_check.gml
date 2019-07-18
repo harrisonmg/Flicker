@@ -103,13 +103,32 @@ switch (curr_flick)
 // chart mode
 if (global.game_mode == game_modes.CHART and flick_this_frame and audio_is_playing(dj_obj.song_index))
 {
+	var track_pos = audio_sound_get_track_position(dj_obj.song_index) - global.offset;
+	if (track_pos < 0) return;
+	
 	if (dj_obj.working_chart_type == chart_types.TIME)
 	{
-		file_text_write_real(dj_obj.working_chart, audio_sound_get_track_position(dj_obj.song_index));
+		file_text_write_real(dj_obj.working_chart, track_pos);
+		file_text_write_real(dj_obj.working_chart, scr_chart_note_val(ledger_index.LEFT_STICK));
+		file_text_write_real(dj_obj.working_chart, scr_chart_note_val(ledger_index.RIGHT_STICK));
 		file_text_writeln(dj_obj.working_chart);
 	}
 	else  // beat chart
 	{
-		file_text_write_real(dj_obj.working_chart, 3.14159);
+		var beat = track_pos / (60 / global.bpm) + 1;
+		var sixteenth = round((frac(beat) + 0.25) / 0.25);
+		
+		beat = floor(beat);
+		if (sixteenth >= 5)
+		{
+			beat += 1
+			sixteenth = 0;
+		}
+		
+		file_text_write_real(dj_obj.working_chart, beat);
+		file_text_write_real(dj_obj.working_chart, sixteenth);
+		file_text_write_real(dj_obj.working_chart, scr_chart_note_val(ledger_index.LEFT_STICK));
+		file_text_write_real(dj_obj.working_chart, scr_chart_note_val(ledger_index.RIGHT_STICK));
+		file_text_writeln(dj_obj.working_chart);
 	}
 }

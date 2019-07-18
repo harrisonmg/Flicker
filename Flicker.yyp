@@ -351,6 +351,14 @@
             }
         },
         {
+            "Key": "f211f7a7-c607-41a0-8b1b-d9660d6d9579",
+            "Value": {
+                "id": "787d79ee-c86e-4e43-a70c-e048eae15ed6",
+                "resourcePath": "scripts\\scr_chart_note_val\\scr_chart_note_val.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "f418569b-3bdd-4706-a0e4-364317f54032",
             "Value": {
                 "id": "7859aa3a-1acf-4f54-a6e8-f89ecac4cabb",

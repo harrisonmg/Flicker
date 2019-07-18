@@ -15,11 +15,11 @@ enum ledger_index
 
 enum note_type
 {
-	NO_NOTE,
-	UP_NOTE,
-	DOWN_NOTE,
-	LEFT_NOTE,
-	RIGHT_NOTE
+	NO_NOTE    = 0,
+	UP_NOTE    = 1,
+	DOWN_NOTE  = 2,
+	LEFT_NOTE  = 3,
+	RIGHT_NOTE = 4
 }
 
 enum game_modes
