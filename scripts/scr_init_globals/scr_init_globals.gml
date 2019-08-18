@@ -2,32 +2,37 @@
 
 enum chart_types
 {
-	TIME = 0,
-	BEAT = 1
+	TIME	= 0,
+	BEAT	= 1
 }
 
 enum ledger_index
 {
-	NOTE_TIME,
-	LEFT_STICK,
-	RIGHT_STICK
+	NOTE_TIME		= 0,
+	STICK			= 1,
+	NOTE_TYPE		= 2,
+	NOTE_DIR		= 3,
+	LEDGER_HEIGHT
 }
 
-enum note_type
+enum sticks
 {
-	NO_NOTE    = 0,
-	UP_NOTE    = 1,
-	DOWN_NOTE  = 2,
-	LEFT_NOTE  = 3,
-	RIGHT_NOTE = 4
+	LEFT	= 0,
+	RIGHT	= 1
 }
 
-enum game_modes
+enum note_types
 {
-	PLAY,
-	CHART
+	SINGLE	= 0,
+	HOLD	= 1
 }
 
-global.game_mode = game_modes.CHART;
+enum note_dirs
+{
+	UP		= 0,
+	DOWN	= 1,
+	LEFT	= 2,
+	RIGHT	= 3,
+}
 
 global.gp_index = 0;

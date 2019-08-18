@@ -1,64 +1,77 @@
 /// @desc Read a note at a playhead position on a ledger and create it.
 /// @arg ledger
 /// @arg playhead
-/// @arg stick_index
 /// @arg note_speed
 /// @arg note_time
 
-var ledger = argument0;
-var playhead = argument1;
-var stick_index = argument2;
-var note_speed = argument3;
-var note_time = argument4;
+var ledger		= argument0;
+var playhead	= argument1;
+var note_speed	= argument2;
 
-var new_note, note_obj, note_ang;
-var type_of_note = ds_grid_get(ledger, playhead, stick_index);
-switch (type_of_note)
+var new_note_time	= argument3;
+var new_note_stick	= ds_grid_get(ledger, playhead, ledger_index.STICK);
+var new_note_type	= ds_grid_get(ledger, playhead, ledger_index.NOTE_TYPE);
+var new_note_dir	= ds_grid_get(ledger, playhead, ledger_index.NOTE_DIR);
+var new_note_ang;
+
+switch (new_note_stick)
 {
-	case note_type.UP_NOTE:
+	case sticks.LEFT:
 	{
-		note_obj = obj_note;
-		note_ang = 90;
+		new_note_stick = left_stick_obj;
 		break;
 	}
-	case note_type.DOWN_NOTE:
+
+	case sticks.RIGHT:
 	{
-		note_obj = obj_note;
-		note_ang = 270;
+		new_note_stick = right_stick_obj;
 		break;
 	}
-	case note_type.LEFT_NOTE:
-	{
-		note_obj = obj_note;
-		note_ang = 180;
-		break;
-	}
-	case note_type.RIGHT_NOTE:
-	{
-		note_obj = obj_note;
-		note_ang = 0;
-		break;
-	}
-	case note_type.NO_NOTE:
+	
 	default:
-		return;
+	{
+		// TODO: error
+		break;
+	}
 }
 
-if (stick_index == ledger_index.LEFT_STICK)
+switch (new_note_dir)
 {
-	new_note = instance_create_layer(
-		left_stick_obj.orig_x, -5, "Notes", note_obj);	
-	new_note.note_stick = left_stick_obj;
-}
-else
-{
-	new_note = instance_create_layer(
-		right_stick_obj.orig_x, -5, "Notes", note_obj);	
-	new_note.note_stick = right_stick_obj;
+	case note_dirs.UP:
+	{
+		new_note_ang = 90;
+		break;
+	}
+	case note_dirs.DOWN:
+	{
+		new_note_ang = 270;
+		break;
+	}
+	case note_dirs.LEFT:
+	{
+		new_note_ang = 180;
+		break;
+	}
+	case note_dirs.RIGHT:
+	{
+		new_note_ang = 0;
+		break;
+	}
+	
+	default:
+	{
+		// TODO: error
+		break;
+	}
 }
 
-new_note.direction = 270;
-new_note.image_angle = note_ang;
-new_note.speed = note_speed;
-new_note.note_time = note_time;
-new_note.note_dir = type_of_note;
+new_note = instance_create_layer(new_note_stick.orig_x, -5, "Notes", obj_note);	
+
+new_note.speed			= note_speed;
+new_note.direction		= 270;  // down
+new_note.image_angle	= new_note_ang;
+
+new_note.note_time	= new_note_time;
+new_note.note_stick	= new_note_stick;
+new_note.note_type	= new_note_type;
+new_note.note_dir	= new_note_dir;

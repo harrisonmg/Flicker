@@ -1,9 +1,6 @@
-up_flick = false;
-down_flick = false;
-left_flick = false;
-right_flick = false;
-
-curr_flick = note_type.NO_NOTE;
+zeroed = true;
+curr_flick = -1;
+flick_this_frame = false;
 
 orig_x = x;
 orig_y = y;

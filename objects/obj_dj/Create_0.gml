@@ -1,4 +1,4 @@
-scr_build_ledger("flicker_beat.chart")
+song = scr_build_ledger("flicker_beat.chart")
 
 read_ahead_time = (right_stick_obj.y + note_alignment) / note_speed / 60;
 
@@ -12,6 +12,4 @@ else
 pre_song_timer = 0;
 playhead = 0;
 streak = 0;
-
-song = snd_flicker;
 song_index = 0;

@@ -1,7 +1,6 @@
 // close on escape key
 if (keyboard_check_pressed(vk_escape))
 {
-	if (global.game_mode == game_modes.CHART) file_text_close(working_chart);
 	game_end();
 }
 
@@ -41,11 +40,11 @@ if (audio_is_playing(song_index) or pre_song_timer > 0)
 	if (playhead < note_count)
 	{
 		var note_time = ds_grid_get(ledger, playhead, ledger_index.NOTE_TIME);
-		if (track_pos + read_ahead_time >= note_time)
+		while (track_pos + read_ahead_time >= note_time)
 		{
-			scr_create_note(ledger, playhead, ledger_index.LEFT_STICK, note_speed, note_time);
-			scr_create_note(ledger, playhead, ledger_index.RIGHT_STICK, note_speed, note_time);
+			scr_create_note(ledger, playhead, note_speed, note_time);
 			++playhead;
+			note_time = ds_grid_get(ledger, playhead, ledger_index.NOTE_TIME);
 		}
 	}
 }

@@ -1,76 +1,57 @@
-/// @desc Read a song chart and build a ledger from it.
-/// @arg chart_name
+/// @desc Read a song chart and build a ledger from it, return the song asset.
+/// @arg chart file name
 
-var chart_name = argument0;
-
+var chart_filename = argument0;
 var ledger_size_inc = 500;
+ledger = ds_grid_create(ledger_size_inc, ledger_index.LEDGER_HEIGHT);
+var chart = file_text_open_read(working_directory + chart_filename);
 
-ledger = ds_grid_create(ledger_size_inc, 3);
-
-var chart = file_text_open_read(working_directory + chart_name);
-
+var song_filename = file_text_read_string(chart);
 var chart_type = file_text_read_real(chart);
-if (chart_type == chart_types.TIME)
+global.bpm = file_text_read_real(chart);
+
+if (chart_type == chart_types.BEAT)
 {
-	global.bpm = file_text_read_real(chart);
-	
-	for (var i = 0; !file_text_eof(chart); ++i)
-	{
-		if (i >= ds_grid_height(ledger))
-			ds_grid_resize(ledger, i + ledger_size_inc, 3);
-		
-		ds_grid_set(ledger, i, 0, file_text_read_real(chart));
-		ds_grid_set(ledger, i, 1, file_text_read_real(chart));
-		ds_grid_set(ledger, i, 2, file_text_read_real(chart));
-	}
-	note_count = i + 1;
-	
-	// copy current chart for chart mode
-	if (global.game_mode == game_modes.CHART)
-	{
-		working_chart_type = chart_types.TIME;
-		working_chart = file_text_open_write(working_directory + string(date_current_datetime()) + ".chart");
-		file_text_write_real(working_chart, chart_types.TIME);
-		file_text_writeln(working_chart);
-		file_text_write_real(working_chart, global.bpm);
-		file_text_writeln(working_chart);
-		file_text_writeln(working_chart);
-	}
-}
-else if (chart_type == chart_types.BEAT)
-{
-	global.bpm = file_text_read_real(chart);
 	var beat_length = 60 / global.bpm;
 	var sixteenth_length = beat_length / 4;
-	global.offset = file_text_read_real(chart);
-	
-	for (var i = 0; !file_text_eof(chart); ++i)
-	{
-		if (i >= ds_grid_height(ledger))
-			ds_grid_resize(ledger, i + ledger_size_inc, 3);
-			
-		var note_time = global.offset + (file_text_read_real(chart) - 1) * beat_length + (file_text_read_real(chart) - 1) * sixteenth_length;
-		
-		ds_grid_set(ledger, i, 0, note_time);
-		ds_grid_set(ledger, i, 1, file_text_read_real(chart));
-		ds_grid_set(ledger, i, 2, file_text_read_real(chart));
-	}
-	note_count = i + 1;
-
-	// copy current chart for chart mode
-	if (global.game_mode == game_modes.CHART)
-	{
-		working_chart_type = chart_types.BEAT;
-		working_chart = file_text_open_write(working_directory + string(date_current_datetime()) + ".chart");
-		file_text_write_real(working_chart, chart_types.BEAT);
-		file_text_writeln(working_chart);
-		file_text_write_real(working_chart, global.bpm);
-		file_text_writeln(working_chart);
-		file_text_write_real(working_chart, global.offset);
-		file_text_writeln(working_chart);
-		file_text_writeln(working_chart);
-	}
+	var offset = file_text_read_real(chart);
 }
 
-ds_grid_resize(ledger, note_count, 3);
+var note_time;
+for (var i = 0; !file_text_eof(chart); ++i)
+{
+	// handle white space
+	while (file_text_eoln(chart))
+	{
+		if file_text_eof(chart) break;
+		file_text_readln(chart);
+	}
+	
+	if file_text_eof(chart) break;
+	
+	// resize ledger if not big enough
+	if (i >= ds_grid_width(ledger))
+		ds_grid_resize(ledger, i + ledger_size_inc, ledger_index.LEDGER_HEIGHT);
+		
+	// support both times and beats
+	if (chart_type == chart_types.BEAT)
+	{
+		note_time = offset + (file_text_read_real(chart) - 1) * beat_length + (file_text_read_real(chart) - 1) * sixteenth_length;
+	}
+	else
+	{
+		note_time = file_text_read_real(chart)
+	}
+	
+	// populate ledger
+	ds_grid_set(ledger, i, ledger_index.NOTE_TIME, note_time);
+	ds_grid_set(ledger, i, ledger_index.STICK, file_text_read_real(chart));
+	ds_grid_set(ledger, i, ledger_index.NOTE_TYPE, file_text_read_real(chart));
+	ds_grid_set(ledger, i, ledger_index.NOTE_DIR, file_text_read_real(chart));
+}
+
+note_count = i;
+ds_grid_resize(ledger, i, ledger_index.LEDGER_HEIGHT);
 file_text_close(chart);
+
+return asset_get_index(song_filename);
