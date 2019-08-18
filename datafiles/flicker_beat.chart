@@ -1,10 +1,15 @@
-snd_flicker
-1
-92
-1.4562
+# pound sign line comments are allowed
+snd_flicker         # song asset name
+1                   # chart type (0 = time, 1 = beat)
+1.5                 # note speed
+92                  # bpm
+1.4562              # for beat chart, time of first note in seconds (offset)
 
-1	1		1 0 0
-1	3		0 0 0
+# time chart: note time, stick, type, direction
+# beat chart: quarter note, sixteenth note, stick, type, direction
+1	1		1 1 0
+1	3		1 1 0
+
 2	1		1 0 1
 2	3		0 0 1
 3	1		1 0 2
@@ -33,7 +38,7 @@ snd_flicker
 13	3		1 0 3
 13	4		0 0 2
 14	2		1 0 3
-
+# test
 15	1		1 0 0
 15	2		0 0 0
 15	3		1 0 1
@@ -42,3 +47,5 @@ snd_flicker
 16	2		0 0 2
 16	3		1 0 3
 16	4		0 0 3
+
+# comment test

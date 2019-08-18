@@ -6,8 +6,11 @@ var ledger_size_inc = 500;
 ledger = ds_grid_create(ledger_size_inc, ledger_index.LEDGER_HEIGHT);
 var chart = file_text_open_read(working_directory + chart_filename);
 
+chart = scr_clean_chart(chart);
+
 var song_filename = file_text_read_string(chart);
 var chart_type = file_text_read_real(chart);
+note_speed = file_text_read_real(chart); 
 global.bpm = file_text_read_real(chart);
 
 if (chart_type == chart_types.BEAT)
@@ -19,16 +22,7 @@ if (chart_type == chart_types.BEAT)
 
 var note_time;
 for (var i = 0; !file_text_eof(chart); ++i)
-{
-	// handle white space
-	while (file_text_eoln(chart))
-	{
-		if file_text_eof(chart) break;
-		file_text_readln(chart);
-	}
-	
-	if file_text_eof(chart) break;
-	
+{	
 	// resize ledger if not big enough
 	if (i >= ds_grid_width(ledger))
 		ds_grid_resize(ledger, i + ledger_size_inc, ledger_index.LEDGER_HEIGHT);
@@ -48,6 +42,8 @@ for (var i = 0; !file_text_eof(chart); ++i)
 	ds_grid_set(ledger, i, ledger_index.STICK, file_text_read_real(chart));
 	ds_grid_set(ledger, i, ledger_index.NOTE_TYPE, file_text_read_real(chart));
 	ds_grid_set(ledger, i, ledger_index.NOTE_DIR, file_text_read_real(chart));
+	
+	if file_text_eof(chart) break;
 }
 
 note_count = i;
