@@ -24,7 +24,8 @@ if (audio_is_playing(song_index) or pre_song_timer > 0)
 		repeat (2)
 		{
 			if (stick.last_hold != noone) stick.last_hold.hold_start = false;
-			stick.last_hold = noone; 
+			stick.last_hold = noone;
+			stick.curr_hold = noone;
 			stick = right_stick_obj;
 		}
 	}

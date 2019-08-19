@@ -16,8 +16,8 @@
     "layers": [
         {
             "__type": "GMRInstanceLayer_Model:#YoYoStudio.MVCFormat",
-            "name": "HoldEnds",
-            "id": "400bd257-bf9e-4802-8734-209e00460795",
+            "name": "Notes",
+            "id": "59adb17d-2e7a-4067-9626-c01e8891e3da",
             "depth": 0,
             "grid_x": 32,
             "grid_y": 32,
@@ -42,8 +42,8 @@
         },
         {
             "__type": "GMRInstanceLayer_Model:#YoYoStudio.MVCFormat",
-            "name": "Notes",
-            "id": "59adb17d-2e7a-4067-9626-c01e8891e3da",
+            "name": "HoldStarts",
+            "id": "400bd257-bf9e-4802-8734-209e00460795",
             "depth": 100,
             "grid_x": 32,
             "grid_y": 32,

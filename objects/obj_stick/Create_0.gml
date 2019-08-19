@@ -5,3 +5,4 @@ orig_x = x;
 orig_y = y;
 
 last_hold = noone;
+curr_hold = noone;

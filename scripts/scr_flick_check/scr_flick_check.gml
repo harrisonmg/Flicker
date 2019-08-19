@@ -50,6 +50,15 @@ if (not flick_this_frame)
 	if (abs(vert) <= flick_reset_threshold and abs(hori) <= flick_reset_threshold)
 	{
 		curr_flick = -1;
+		
+		// handle hold notes
+		if (curr_hold != noone)
+		{
+			curr_hold.active = false;
+			curr_hold.sprite_index = spr_missed_note;
+			curr_hold = noone;
+			obj_dj.streak = 0;
+		}
 	}
 }
 

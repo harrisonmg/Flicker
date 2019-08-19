@@ -39,12 +39,12 @@ switch(new_note_type)
 	{
 		if (new_note_stick.last_hold != noone)
 		{
-			// draw hold ends on higher layer so hold lines are drawn under
-			new_note_layer = "HoldEnds";
+			new_note_layer = "Notes";
 		}
 		else
 		{
-			new_note_layer = "Notes";
+			// draw hold starts on lower layer so hold lines are drawn under other stuff
+			new_note_layer = "HoldStarts";
 		}
 		break;
 	}
@@ -113,7 +113,8 @@ if (new_note_type == note_types.HOLD)
 	else
 	{
 		new_note.hold_start = false;
-		new_note_stick.last_hold.hold_end = new_note;
+		new_note.other_hold = new_note_stick.last_hold;
+		new_note_stick.last_hold.other_hold = new_note;
 		new_note_stick.last_hold = noone;
 	}
 }
