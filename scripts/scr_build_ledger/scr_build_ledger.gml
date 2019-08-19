@@ -16,7 +16,7 @@ global.bpm = file_text_read_real(chart);
 if (chart_type == chart_types.BEAT)
 {
 	var beat_length = 60 / global.bpm;
-	var sixteenth_length = beat_length / 4;
+	var thirty2nd_length = beat_length / 8;
 	var offset = file_text_read_real(chart);
 }
 
@@ -30,7 +30,7 @@ for (var i = 0; !file_text_eof(chart); ++i)
 	// support both times and beats
 	if (chart_type == chart_types.BEAT)
 	{
-		note_time = offset + (file_text_read_real(chart) - 1) * beat_length + (file_text_read_real(chart) - 1) * sixteenth_length;
+		note_time = offset + (file_text_read_real(chart) - 1) * beat_length + (file_text_read_real(chart) - 1) * thirty2nd_length;
 	}
 	else
 	{
